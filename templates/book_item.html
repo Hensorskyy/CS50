@@ -1,0 +1,55 @@
+{%extends 'layout.html'%}
+
+{%block body%}
+{% for item in info %}
+ <h1>{{item}}</h1>
+{%endfor%}
+<h1>{{avarage_rating}}</h1>
+
+<h1>Average rating on Goodreads: {{goodreads_info['average_rating']}}</h1>
+<h1>Review conunt on Goodreads: {{goodreads_info['ratings_count']}}</h1>
+
+{% from "includes/_formhelpers.html" import render_field %}
+{%if left_post%}
+<form action="" method="post">
+  <div class="form-group">
+    {{render_field(form.title, class_='form.control')}}
+  </div>
+  <div class="form-group">
+    {{render_field(form.body, class_='form.control', id= 'editor')}}
+  </div>
+
+  <div class="form-group">
+    {{render_field(form.rate, class_='form.control')}}
+  </div>
+
+  <p><input type="submit" class="btn btn-primary" value="Submit"></p>
+</form>
+
+{%else%}
+
+  <p>You have already left review</p>
+{%endif%}
+ {% if existing_reviews |length !=0 %}
+<table class='table table-stripped'>
+  <tr>
+    <th>UserId</th>
+    <th>Review title</th>
+    <th>Body</th>
+    <th>Rate</th>
+  </tr>
+    {% for review in existing_reviews %}
+     <tr>
+       <th>{{review[3]}}</th>
+       <th>{{review[1]}}</th>
+       <th>{{review[2]}}</th>
+       <th>{{review[5]}}</th>
+     </tr>
+    {%endfor%}
+  {%else%}
+    <p>There is no post yet</p>
+  {%endif%}
+</table>
+
+
+{%endblock%}

@@ -1,0 +1,14 @@
+{%extends 'layout.html'%}
+
+{%block body%}
+<h1>This page shows all books that are currently available</h1>
+<div class="jumbotron text-left">
+  <ul class="list-group">
+    {%for book in library%}
+    <li><a href="{{url_for('book_manager', isbn= book['isbn']) }} ">{{book['title']}}</a></li>
+    {%endfor%}
+  </ul>
+</div>
+
+
+{%endblock%}
